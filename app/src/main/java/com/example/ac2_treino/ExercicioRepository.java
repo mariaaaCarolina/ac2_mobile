@@ -16,10 +16,6 @@ public class ExercicioRepository {
         return instancia;
     }
 
-    public void setListaExercicios(List<Exercicio> lista) {
-        this.listaExercicios = lista;
-    }
-
     public List<Exercicio> getListaExercicios() {
         return listaExercicios;
     }

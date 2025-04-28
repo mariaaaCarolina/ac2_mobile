@@ -15,8 +15,7 @@ public class CadastroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cadastro); // usa o layout de cadastro
-
+        setContentView(R.layout.activity_cadastro);
         etNomeExercicio = findViewById(R.id.etNomeExercicio);
         etDuracaoEmSegundos = findViewById(R.id.etDuracaoEmSegundos);
         btnSalvarExercicio = findViewById(R.id.btnSalvarExercicio);
@@ -35,10 +34,9 @@ public class CadastroActivity extends AppCompatActivity {
                 int duracao = Integer.parseInt(duracaoStr);
                 Exercicio novo = new Exercicio(nome, duracao);
 
-                // Salva no repositório
                 ExercicioRepository.getInstancia().getListaExercicios().add(novo);
                 Toast.makeText(CadastroActivity.this, "Exercício cadastrado!", Toast.LENGTH_SHORT).show();
-                finish(); // Fecha a tela e volta para a principal
+                finish();
             }
         });
     }

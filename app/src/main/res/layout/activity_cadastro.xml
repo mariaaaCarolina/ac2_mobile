@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CadastroActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289"
+        tools:layout_editor_absoluteX="0dp">
+
+        <EditText
+            android:id="@+id/etNomeExercicio"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Nome do exercicio" />
+
+        <EditText
+            android:id="@+id/etDuracaoEmSegundos"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Duração do exercicio em segudos" />
+
+        <Button
+            android:id="@+id/btnSalvarExercicio"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:text="Cadastrar Exercicio" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

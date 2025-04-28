@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,8 +28,16 @@
             android:exported="true">
         </activity>
 
-        <service android:name=".TreinoService" />
+        <activity
+            android:name=".TreinoActivity"
+            android:exported="true">
+        </activity>
+
+        <service
+            android:name=".TreinoService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
 
     </application>
-
 </manifest>

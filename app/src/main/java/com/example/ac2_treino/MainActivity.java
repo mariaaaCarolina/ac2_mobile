@@ -5,21 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText etNomeExercicio, etDuracaoEmSegundos;
     ListView lvExercicios;
-    Button btnSalvarExercicio, btnCadastrar, btnIniciarTreino;
-
-    ArrayList<Exercicio> listaExercicio = new ArrayList<>();
+    Button btnCadastrar, btnIniciarTreino;
     ArrayAdapter<String> adaptador;
 
     @Override
@@ -27,41 +20,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etNomeExercicio = findViewById(R.id.etNomeExercicio);
-        etDuracaoEmSegundos = findViewById(R.id.etDuracaoEmSegundos);
         lvExercicios = findViewById(R.id.lvExercicios);
         btnIniciarTreino = findViewById(R.id.btnIniciarTreino);
-        btnSalvarExercicio = findViewById(R.id.btnSalvarExercicio);
         btnCadastrar = findViewById(R.id.btnCadastrar);
 
         adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lvExercicios.setAdapter(adaptador);
 
-        btnSalvarExercicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nome = etNomeExercicio.getText().toString();
-                if (nome.isEmpty() || etDuracaoEmSegundos.getText().toString().isEmpty()) return;
-
-                int duracao = Integer.parseInt(etDuracaoEmSegundos.getText().toString());
-
-                Exercicio novo = new Exercicio(nome, duracao);
-                listaExercicio.add(novo);
-                adaptador.add(nome + " - " + duracao + "s");
-
-                etNomeExercicio.setText("");
-                etDuracaoEmSegundos.setText("");
-            }
-        });
+        carregarExercicios();
 
         btnIniciarTreino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ExercicioRepository.getInstancia().setListaExercicios(listaExercicio);
-
-                Intent intent = new Intent(MainActivity.this, TreinoService.class);
-                ContextCompat.startForegroundService(MainActivity.this, intent);
+                if (!ExercicioRepository.getInstancia().getListaExercicios().isEmpty()) {
+                    Intent intent = new Intent(MainActivity.this, TreinoActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -72,5 +46,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void carregarExercicios() {
+        adaptador.clear();
+        for (Exercicio exercicio : ExercicioRepository.getInstancia().getListaExercicios()) {
+            adaptador.add(exercicio.getNome() + " - " + exercicio.getDuracaoEmSegundos() + "s");
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarExercicios();
     }
 }
